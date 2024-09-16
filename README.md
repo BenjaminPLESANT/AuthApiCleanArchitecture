@@ -132,3 +132,12 @@ La combinaison de la Clean Architecture et du Repository Pattern permet de :
         ```
 
 ---
+
+## Technologies Utilisées
+
+- **ASP.NET Core 7** : Framework pour la création de l'API.
+- **Entity Framework Core** : ORM pour l'accès à la base de données.
+- **SQLite** : Base de données relationnelle légère utilisée pour cette application.
+- **ASP.NET Core Identity** : Gestion des utilisateurs, des rôles et de l'authentification.
+- **JWT (JSON Web Token)** : Utilisé pour la gestion des tokens d'authentification.
+- **Swagger** : Génération automatique de la documentation de l'API.
