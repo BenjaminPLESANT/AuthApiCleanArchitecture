@@ -23,17 +23,28 @@ public class AuthService : IAuthService
 
     public async Task<string> LoginAsync(LoginRequestDto request)
     {
+         if (string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Password))
+            throw new ArgumentException("Email and password are required");
+
         var user = await _userRepository.GetUserByEmailAsync(request.Email);
+        
         if (user == null || !await _userRepository.CheckPasswordAsync(user, request.Password))
-        {
-            throw new Exception("Invalid credentials");
-        }
+            throw new InvalidCredentialsException();
 
         return _jwtTokenGenerator.GenerateJwtToken(user);
     }
 
     public async Task RegisterAsync(RegisterRequestDto request)
     {
+
+         if (string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Password) || string.IsNullOrEmpty(request.UserName))
+            throw new ArgumentException("Invalid input data");
+
+        var existingUser = await _userRepository.GetUserByEmailAsync(request.Email);
+        
+        if (existingUser != null)
+            throw new Exception("User already exists");
+            
         var user = new User
         {
             Id = Guid.NewGuid(),
